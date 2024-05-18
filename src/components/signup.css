@@ -1,0 +1,6 @@
+.box form .input_box input:focus + label,
+.box form .input_box input:valid + label{
+    top: -15px;
+    font-size: 18px;
+    color: blue;
+}
