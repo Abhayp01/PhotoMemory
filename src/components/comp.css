@@ -1,0 +1,71 @@
+.homepage{
+    background-image: url('../assets/pexels-brett.jpg');
+}
+
+.loginpage{
+    background-image: url('../assets/login.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode:darken;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    /* overflow: hidden; */
+    /* filter: blur( 2px ); */
+    /* -webkit-backdrop-filter: blur( 300px ); */
+
+}
+
+.signpage{
+    background-image: url('../assets/signup.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode:darken;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.blureffect{
+    margin-top: 90px !important;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(255, 255, 255, 0.13);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    /* filter: blur( 2px ); */
+     backdrop-filter: blur( 3px );
+    /* -webkit-backdrop-filter: blur( 3px ); */
+}
+
+
+.userimg{
+    cursor: pointer;
+    transition: opacity 400ms;
+}
+
+.userimg:hover{
+    opacity: 0.9;
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .userimg {
+    opacity: 0;
+    animation: fadeIn 1s ease-out;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
+  }
