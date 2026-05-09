@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import AuthContext from '../context/AuthContext';
+import axios from '../api/axios';
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -9,25 +10,18 @@ function Login() {
 
     async function loginUser(event) {
         event.preventDefault();
-        const response = await fetch('http://localhost:8000/api/v1/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-            credentials: 'include'
-        });
+        try {
+            const response = await axios.post('/api/v1/users/login', { email, password });
 
-        if (response.ok) {
-            const data = await response.json();
-            if (data.user) {
-                setAuth(data.user);
+            if (response.data.user) {
+                setAuth(response.data.user);
                 alert('Login successful');
                 navigate('/image_upload');
             } else {
                 alert('Please check your username and password');
             }
-        } else {
+        } catch (error) {
+            console.error('Login error:', error);
             alert('Login failed. Please try again later.');
         }
     }

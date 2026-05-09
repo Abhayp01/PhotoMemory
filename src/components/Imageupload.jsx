@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import axios from '../api/axios';
 
 function ImageUpload() {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -15,13 +16,10 @@ function ImageUpload() {
         }
         const fetchUploadedImages = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/v1/users/get-images', {
-                    credentials: 'include' 
-                });
+                const response = await axios.get('/api/v1/users/get-images');
 
-                if (response.ok) {
-                    const data = await response.json();
-                    setUploadedImages(data.images);
+                if (response.data.images) {
+                    setUploadedImages(response.data.images);
                 } else {
                     console.error('Failed to fetch images:', response.statusText);
                 }
@@ -56,11 +54,8 @@ function ImageUpload() {
 
     const verifyCookies = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/v1/users/some-protected-route', {
-                credentials: 'include' 
-            });
-            const data = await response.json();
-            console.log(data);
+            const response = await axios.get('/api/v1/users/some-protected-route');
+            console.log(response.data);
         } catch (error) {
             console.error('Error verifying cookies:', error);
         }
@@ -77,18 +72,13 @@ function ImageUpload() {
         formData.append('image', selectedFile);
 
         try {
-            const response = await fetch('http://localhost:8000/api/v1/users/image-upload', {
-                method: 'POST',
-                body: formData,
-                credentials: 'include' 
-            });
-            const data = await response.json(); 
+            const response = await axios.post('/api/v1/users/image-upload', formData);
 
-            if (response.ok && data.imageUrl) {
+            if (response.data.imageUrl) {
                 alert('Upload successful!');
-                setUploadedImages(prev => [...prev, data.imageUrl]);
+                setUploadedImages(prev => [...prev, response.data.imageUrl]);
             } else {
-                console.log(data);
+                console.log(response.data);
                 alert('Upload failed. Please try again.');
             }
         } catch (error) {

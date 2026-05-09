@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, NavLink } from "react-router-dom";
+import axios from '../api/axios';
 import './signup.css'
 function Signup() {
     const [email,setemail]=useState("");
@@ -8,20 +9,16 @@ function Signup() {
 
     async function signupUser(event){
         event.preventDefault();
-        const response= await fetch('http://localhost:8000/api/v1/users/register',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json',
-            },
-            body:JSON.stringify({
+        try {
+            const response = await axios.post('/api/v1/users/register', {
                 username,
                 email,
                 password,
-            }),
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Signup error:', error);
         }
-        )
-        const data= await response.json();
-        console.log(data);
     }
 
   return (

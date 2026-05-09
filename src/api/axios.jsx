@@ -1,6 +1,7 @@
 import axios from 'axios';
-const BASE_URL = 'http://localhost:8000';
+export const BASE_URL = 'https://photomemorybackend-production.up.railway.app';
 
 export default axios.create({
-    baseURL: BASE_URL
+    baseURL: BASE_URL,
+    withCredentials: true
 });

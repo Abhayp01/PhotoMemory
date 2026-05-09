@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../api/axios';
 
 const AuthContext = createContext({});
 
@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/check-auth', { withCredentials: true })
+        axios.get('/api/v1/check-auth')
             .then(response => {
                 if (response.data.authenticated) {
                     setAuth(response.data.user);
